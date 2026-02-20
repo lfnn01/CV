@@ -9,6 +9,8 @@
   --accent-soft: #ffe9d9;
   --border: #bddfc6;
   --shadow: 0 16px 35px rgba(62, 122, 80, 0.16);
+  --glow-1: rgba(103, 181, 118, 0.34);
+  --glow-2: rgba(255, 233, 217, 0.6);
 }
 
 * {
@@ -24,6 +26,137 @@ body {
     linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
   color: var(--ink);
   min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  z-index: -2;
+  border-radius: 999px;
+  filter: blur(2px);
+}
+
+body::before {
+  width: 26rem;
+  height: 26rem;
+  left: -7rem;
+  bottom: -5rem;
+  background: radial-gradient(circle, var(--glow-1), transparent 65%);
+}
+
+body::after {
+  width: 22rem;
+  height: 22rem;
+  right: -5rem;
+  top: 34%;
+  background: radial-gradient(circle, var(--glow-2), transparent 68%);
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 20;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 0.52rem 0.95rem;
+  font-weight: 700;
+  font-family: "Quicksand", sans-serif;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform 180ms ease, background 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-1px);
+}
+
+body.night-mode {
+  --bg: #0c1220;
+  --bg-2: #101a2f;
+  --paper: #161f33;
+  --ink: #e5ebff;
+  --muted: #b2bfdf;
+  --accent: #66c7b2;
+  --accent-dark: #9cd8ff;
+  --accent-soft: #243454;
+  --border: #2d3c62;
+  --shadow: 0 16px 35px rgba(5, 10, 24, 0.5);
+}
+
+body.night-mode {
+  background:
+    radial-gradient(circle at 20% 15%, rgba(102, 199, 178, 0.16) 0 22%, transparent 45%),
+    radial-gradient(circle at 85% 10%, rgba(126, 152, 255, 0.14) 0 20%, transparent 43%),
+    linear-gradient(180deg, #0a1120 0%, #0f1a32 100%);
+}
+
+body.night-mode::before {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 0;
+  filter: none;
+  background:
+    radial-gradient(circle at 12% 28%, rgba(255, 255, 255, 0.8) 0 1px, transparent 2px),
+    radial-gradient(circle at 31% 12%, rgba(255, 255, 255, 0.7) 0 1px, transparent 2px),
+    radial-gradient(circle at 54% 24%, rgba(255, 255, 255, 0.65) 0 1px, transparent 2px),
+    radial-gradient(circle at 72% 16%, rgba(255, 255, 255, 0.72) 0 1px, transparent 2px),
+    radial-gradient(circle at 84% 38%, rgba(255, 255, 255, 0.68) 0 1px, transparent 2px),
+    radial-gradient(circle at 16% 64%, rgba(255, 255, 255, 0.62) 0 1px, transparent 2px),
+    radial-gradient(circle at 43% 76%, rgba(255, 255, 255, 0.75) 0 1px, transparent 2px),
+    radial-gradient(circle at 66% 62%, rgba(255, 255, 255, 0.65) 0 1px, transparent 2px),
+    radial-gradient(circle at 90% 74%, rgba(255, 255, 255, 0.7) 0 1px, transparent 2px);
+  opacity: 0.7;
+  animation: twinkle 5s ease-in-out infinite alternate;
+}
+
+body.night-mode::after {
+  width: 36rem;
+  height: 36rem;
+  right: -10rem;
+  top: -7rem;
+  filter: blur(0);
+  background: radial-gradient(circle, rgba(164, 193, 255, 0.22), transparent 63%);
+}
+
+body.night-mode .page-glow {
+  background: radial-gradient(circle, rgba(102, 199, 178, 0.14), transparent 64%);
+}
+
+body.night-mode .hero-content,
+body.night-mode .section-card,
+body.night-mode .landing-card,
+body.night-mode .highlights article,
+body.night-mode .two-col article,
+body.night-mode .contact,
+body.night-mode .game-shell {
+  background: rgba(20, 31, 52, 0.82);
+}
+
+body.night-mode .photo-card {
+  background: linear-gradient(180deg, rgba(36, 52, 84, 0.65) 0%, rgba(18, 28, 48, 0.92) 100%);
+}
+
+body.night-mode .btn-primary {
+  color: #0e1730;
+}
+
+body.night-mode .game-shell.is-dormant #frog-canvas {
+  filter: saturate(0.72) brightness(0.8);
+}
+
+body.night-mode .cute-chips span {
+  border-color: #355189;
+  background: linear-gradient(180deg, rgba(41, 57, 92, 0.9) 0%, rgba(29, 43, 74, 0.86) 100%);
+  color: #d6e2ff;
+  box-shadow: 0 6px 14px rgba(8, 15, 30, 0.35);
 }
 
 .page-glow {
@@ -83,6 +216,21 @@ main {
   padding: clamp(1.6rem, 4vw, 3.5rem);
   box-shadow: var(--shadow);
   animation: reveal 700ms ease-out both;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content::after,
+.section-card::after,
+.landing-card::after {
+  content: "";
+  position: absolute;
+  inset: -120% 55% auto -30%;
+  height: 270%;
+  transform: rotate(20deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  pointer-events: none;
+  animation: shimmer 8s linear infinite;
 }
 
 .hero-copy {
@@ -138,11 +286,12 @@ h1 {
   padding: 0.78rem 1.16rem;
   border-radius: 999px;
   font-weight: 700;
-  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, filter 180ms ease;
 }
 
 .btn:hover {
   transform: translateY(-2px);
+  filter: saturate(1.08);
 }
 
 .btn-primary {
@@ -259,6 +408,14 @@ h1 {
   background: rgba(248, 255, 249, 0.92);
   animation: reveal 900ms ease-out both;
   box-shadow: var(--shadow);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.highlights article:hover,
+.section-card:hover,
+.two-col article:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 34px rgba(62, 122, 80, 0.2);
 }
 
 .highlights h2 {
@@ -280,6 +437,9 @@ h1 {
   background: rgba(248, 255, 249, 0.92);
   box-shadow: var(--shadow);
   animation: reveal 1000ms ease-out both;
+  position: relative;
+  overflow: hidden;
+  transition: transform 220ms ease, box-shadow 220ms ease;
 }
 
 .section-card h2 {
@@ -320,6 +480,7 @@ h1 {
   border-radius: 1.4rem;
   padding: 1rem;
   background: rgba(255, 255, 255, 0.62);
+  transition: transform 220ms ease, box-shadow 220ms ease;
 }
 
 .contact {
@@ -365,6 +526,8 @@ h1 {
   align-items: center;
   padding: 1.5rem 1.2rem 1.8rem;
   animation: reveal 700ms ease-out both;
+  position: relative;
+  overflow: hidden;
 }
 
 .landing-welcome {
@@ -396,8 +559,87 @@ h1 {
   font-weight: 700;
 }
 
+.cute-chips {
+  margin-top: 0.9rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  justify-content: center;
+}
+
+.cute-chips span {
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(248, 255, 249, 0.55) 100%);
+  border-radius: 999px;
+  padding: 0.34rem 0.72rem;
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
 .landing-cta {
   margin-top: 1.2rem;
+}
+
+.game-section p {
+  margin-bottom: 0.9rem;
+}
+
+.game-section::after {
+  content: none;
+}
+
+.game-shell {
+  border: 1px solid var(--border);
+  border-radius: 1.6rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(248, 255, 249, 0.9) 100%);
+  padding: 0.8rem;
+}
+
+.game-stage {
+  position: relative;
+}
+
+.game-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  color: var(--muted);
+  padding: 0.2rem 0.3rem 0.6rem;
+}
+
+#frog-canvas {
+  width: 100%;
+  height: auto;
+  border: 1px dashed var(--border);
+  border-radius: 1.1rem;
+  background: #ecfaee;
+  display: block;
+}
+
+.game-shell.is-dormant #frog-canvas {
+  filter: saturate(0.8) brightness(0.95);
+}
+
+.game-start {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.96);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.game-shell.is-dormant.show-start .game-start {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.game-reset {
+  margin-top: 0.8rem;
 }
 
 @keyframes reveal {
@@ -421,6 +663,27 @@ h1 {
   }
 }
 
+@keyframes shimmer {
+  0% {
+    transform: translateX(-120%) rotate(20deg);
+  }
+  55% {
+    transform: translateX(260%) rotate(20deg);
+  }
+  100% {
+    transform: translateX(260%) rotate(20deg);
+  }
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0.45;
+  }
+  100% {
+    opacity: 0.82;
+  }
+}
+
 @media (max-width: 900px) {
   .mini-card {
     grid-template-columns: 1fr;
@@ -435,5 +698,9 @@ h1 {
 
   .two-col {
     grid-template-columns: 1fr;
+  }
+
+  .game-head {
+    font-size: 0.9rem;
   }
 }

@@ -11,11 +11,12 @@
 </head>
 <body>
   <div class="page-glow" aria-hidden="true"></div>
+  <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle night mode">Night Mode</button>
 
   <header class="hero">
     <nav class="top-nav">
       <a class="logo" href="index.html">L.F.A</a>
-      <a class="resume-link" href="#contact">Contact</a>
+     
     </nav>
 
     <section class="hero-content cv-hero-grid">
@@ -25,6 +26,11 @@
         <p class="intro">
           Hands-on experience in web development, system support, creative, and technical operations. Dependable, detail-oriented, and professionally fluent in both English and Arabic.
         </p>
+        <div class="cute-chips" aria-label="Professional strengths">
+          <span>Problem Solver</span>
+          <span>Leader</span>
+          <span>Detail-Oriented</span>
+        </div>
         <div class="cta-row">
           <a class="btn btn-primary" href="#projects">View Projects</a>
           <a class="btn btn-secondary" href="#contact">Contact Me</a>
@@ -121,6 +127,22 @@
       </div>
     </section>
 
+    <section class="section-card game-section" id="frog-game">
+      <h2>Mini Game Demo</h2>
+      <p>Move your mouse to aim, then click or press Space to launch the frog&apos;s tongue and catch blue butterflies.</p>
+      <div class="game-shell">
+        <div class="game-head">
+          <span>Frog + Butterflies</span>
+          <span id="game-score">Score: 0</span>
+        </div>
+        <div class="game-stage" id="game-stage">
+          <canvas id="frog-canvas" width="520" height="300" aria-label="Frog eats butterflies mini game"></canvas>
+          <button class="btn btn-primary game-start" id="game-start" type="button">Start Game</button>
+        </div>
+        <button class="btn btn-secondary game-reset" id="game-reset" type="button">Restart</button>
+      </div>
+    </section>
+
     <section class="section-card">
       <h2>Professional Experience</h2>
       <p><strong>COOP Training - Intern at Hail International Airport</strong></p>
@@ -160,5 +182,7 @@
       <a class="btn btn-primary" href="mailto:lfn.nawar5@gmail.com">lfn.nawar5@gmail.com</a>
     </section>
   </main>
+  <script src="theme.js"></script>
+  <script src="game.js"></script>
 </body>
 </html>
