@@ -1,6 +1,7 @@
 (() => {
   const btn = document.getElementById("theme-toggle");
-  if (!btn) return;
+  const topBtn = document.getElementById("top-button");
+  if (!btn && !topBtn) return;
 
   const storageKey = "lfa-theme-mode";
 
@@ -9,15 +10,23 @@
     btn.setAttribute("aria-label", isNight ? "Switch to day mode" : "Switch to night mode");
   };
 
-  const saved = localStorage.getItem(storageKey);
-  if (saved === "night") {
-    document.body.classList.add("night-mode");
-  }
-  setLabel(document.body.classList.contains("night-mode"));
+  if (btn) {
+    const saved = localStorage.getItem(storageKey);
+    if (saved === "night") {
+      document.body.classList.add("night-mode");
+    }
+    setLabel(document.body.classList.contains("night-mode"));
 
-  btn.addEventListener("click", () => {
-    const isNight = document.body.classList.toggle("night-mode");
-    localStorage.setItem(storageKey, isNight ? "night" : "day");
-    setLabel(isNight);
-  });
+    btn.addEventListener("click", () => {
+      const isNight = document.body.classList.toggle("night-mode");
+      localStorage.setItem(storageKey, isNight ? "night" : "day");
+      setLabel(isNight);
+    });
+  }
+
+  if (topBtn) {
+    topBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
 })();

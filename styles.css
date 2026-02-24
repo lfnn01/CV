@@ -24,6 +24,8 @@ body {
     radial-gradient(circle at 10% 10%, rgba(103, 181, 118, 0.22) 0 18%, transparent 40%),
     radial-gradient(circle at 92% 12%, rgba(255, 233, 217, 0.65) 0 16%, transparent 39%),
     linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+  background-size: 180% 180%, 180% 180%, 220% 220%;
+  animation: gradientDrift 18s ease-in-out infinite;
   color: var(--ink);
   min-height: 100vh;
   position: relative;
@@ -76,6 +78,34 @@ body::after {
   transform: translateY(-1px);
 }
 
+.top-button {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 20;
+  width: 3.1rem;
+  height: 3.1rem;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Quicksand", sans-serif;
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform 180ms ease, background 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.top-button:hover {
+  transform: translateY(-2px);
+}
+
+.top-button:focus-visible {
+  outline: 3px solid var(--accent-dark);
+  outline-offset: 3px;
+}
+
 body.night-mode {
   --bg: #0c1220;
   --bg-2: #101a2f;
@@ -94,6 +124,8 @@ body.night-mode {
     radial-gradient(circle at 20% 15%, rgba(102, 199, 178, 0.16) 0 22%, transparent 45%),
     radial-gradient(circle at 85% 10%, rgba(126, 152, 255, 0.14) 0 20%, transparent 43%),
     linear-gradient(180deg, #0a1120 0%, #0f1a32 100%);
+  background-size: 180% 180%, 180% 180%, 220% 220%;
+  animation: gradientDrift 18s ease-in-out infinite;
 }
 
 body.night-mode::before {
@@ -193,16 +225,6 @@ main {
   border-radius: 999px;
   padding: 0.52rem 0.95rem;
   box-shadow: var(--shadow);
-}
-
-.resume-link {
-  text-decoration: none;
-  color: var(--ink);
-  font-weight: 700;
-  background: var(--paper);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 0.5rem 1rem;
 }
 
 .hero-content {
@@ -347,13 +369,6 @@ h1 {
   object-fit: cover;
 }
 
-.photo-note {
-  margin: 0.8rem 0 0;
-  font-size: 0.9rem;
-  color: var(--muted);
-  text-align: center;
-}
-
 .accent-bubbles {
   display: flex;
   gap: 0.55rem;
@@ -413,7 +428,7 @@ h1 {
 
 .highlights article:hover,
 .section-card:hover,
-.two-col article:hover {
+.two-col article:not(.project-card):hover {
   transform: translateY(-4px);
   box-shadow: 0 20px 34px rgba(62, 122, 80, 0.2);
 }
@@ -469,6 +484,78 @@ h1 {
   line-height: 1.5;
 }
 
+.skills-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.skills-group {
+  border: 1px solid var(--border);
+  border-radius: 1.4rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.62);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.skills-group h3 {
+  margin: 0 0 0.8rem;
+}
+
+.skills-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.skill-chip {
+  animation: badgeFloat 6s ease-in-out infinite;
+}
+
+.skill-chip:nth-child(3n) {
+  animation-delay: 0.8s;
+}
+
+.skill-chip:nth-child(3n + 1) {
+  animation-delay: 1.4s;
+}
+
+.skill-badge {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.45rem 0.82rem;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--ink);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(248, 255, 249, 0.74) 100%);
+  box-shadow: 0 6px 14px rgba(62, 122, 80, 0.1);
+  transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+}
+
+.skill-chip:hover .skill-badge {
+  transform: scale(1.05);
+  border-color: rgba(103, 181, 118, 0.5);
+  box-shadow: 0 10px 20px rgba(62, 122, 80, 0.16);
+}
+
+body.night-mode .skills-group {
+  background: rgba(26, 38, 63, 0.7);
+}
+
+body.night-mode .skill-badge {
+  color: #e5ebff;
+  border-color: #355189;
+  background: linear-gradient(180deg, rgba(44, 61, 96, 0.92) 0%, rgba(31, 47, 80, 0.9) 100%);
+  box-shadow: 0 8px 16px rgba(8, 15, 30, 0.3);
+}
+
+body.night-mode .skill-chip:hover .skill-badge {
+  border-color: rgba(102, 199, 178, 0.45);
+  box-shadow: 0 12px 20px rgba(8, 15, 30, 0.4);
+}
+
 .two-col {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -481,6 +568,25 @@ h1 {
   padding: 1rem;
   background: rgba(255, 255, 255, 0.62);
   transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.project-card {
+  transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(103, 181, 118, 0.45);
+  box-shadow:
+    0 16px 28px rgba(62, 122, 80, 0.2),
+    0 0 0 1px rgba(103, 181, 118, 0.2);
+}
+
+body.night-mode .project-card:hover {
+  border-color: rgba(102, 199, 178, 0.48);
+  box-shadow:
+    0 16px 28px rgba(5, 10, 24, 0.44),
+    0 0 0 1px rgba(102, 199, 178, 0.24);
 }
 
 .contact {
@@ -542,6 +648,7 @@ h1 {
   width: min(280px, 90%);
 }
 
+
 .landing-name {
   margin: 1rem 0 0.35rem;
   font-family: "Baloo 2", cursive;
@@ -558,6 +665,7 @@ h1 {
   font-size: clamp(1rem, 3vw, 1.2rem);
   font-weight: 700;
 }
+
 
 .cute-chips {
   margin-top: 0.9rem;
@@ -642,6 +750,19 @@ h1 {
   margin-top: 0.8rem;
 }
 
+.has-scroll-animations .fade-in-section {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 700ms ease, transform 700ms ease;
+  animation: none;
+  will-change: opacity, transform;
+}
+
+.has-scroll-animations .fade-in-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 @keyframes reveal {
   from {
     opacity: 0;
@@ -684,6 +805,28 @@ h1 {
   }
 }
 
+@keyframes badgeFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes gradientDrift {
+  0% {
+    background-position: 0% 50%, 100% 50%, 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%, 0% 50%, 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%, 100% 50%, 0% 50%;
+  }
+}
+
 @media (max-width: 900px) {
   .mini-card {
     grid-template-columns: 1fr;
@@ -700,7 +843,28 @@ h1 {
     grid-template-columns: 1fr;
   }
 
+  .skills-layout {
+    grid-template-columns: 1fr;
+  }
+
   .game-head {
     font-size: 0.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .has-scroll-animations .fade-in-section {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  body,
+  body.night-mode {
+    animation: none;
+  }
+
+  .skill-chip {
+    animation: none;
   }
 }
